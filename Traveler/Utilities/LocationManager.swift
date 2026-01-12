@@ -74,7 +74,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
                     if resolvedFullLocation.isEmpty {
                         resolvedFullLocation = item.name ?? ""
                     }
-
                     await MainActor.run {
                         self.city = resolvedCity
                         self.country = resolvedCountry
