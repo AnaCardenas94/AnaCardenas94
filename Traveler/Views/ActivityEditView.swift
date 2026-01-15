@@ -17,7 +17,6 @@ struct ActivityEditView: View {
     @State var date: Date = Date()
     @State var startTime: Date? = nil
     @State var endTime: Date? = nil
-    @State var category: String = ""
     @State var details: String = ""
     @State private var errorMessage: String? = nil
     
@@ -46,7 +45,6 @@ struct ActivityEditView: View {
                                selection: Binding($endTime, replacingNilWith: Date()),
                                displayedComponents: .hourAndMinute)
                         .tint(mainColor)
-                    TextField("Details", text: $category)
                     TextEditor(text: $details).frame(height: 120)
                     
                     if let errorMessage {
@@ -76,7 +74,6 @@ struct ActivityEditView: View {
                     date = a.date
                     startTime = a.startTime
                     endTime = a.endTime
-                    category = a.category ?? ""
                     details = a.details
                 }
             }
@@ -91,13 +88,11 @@ struct ActivityEditView: View {
             act.date = Calendar.current.startOfDay(for: date)
             act.startTime = startTime
             act.endTime = endTime
-            act.category = category
             act.details = details
         } else {
             act = Activity(date: Calendar.current.startOfDay(for: date), title: title,
                            details: details, startTime: startTime,
-                           endTime: endTime,
-                           category: category)
+                           endTime: endTime)
         }
         
         guard !act.title.replacingOccurrences(of: " ", with: "").isEmpty else {
